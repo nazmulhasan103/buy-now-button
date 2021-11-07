@@ -32,12 +32,45 @@ class Menu {
     }
 
     public function menu_callback() {
+        if ( ! empty( $_POST ) ) {
+
+            $single    = isset( $_POST['buy_now_single'] ) ? $_POST['buy_now_single'] : false;
+            $all       = isset( $_POST['buy_now_product_card'] ) ? $_POST['buy_now_product_card'] : false;
+            $btn_label = isset( $_POST['buy_now_label'] ) ? $_POST['buy_now_label'] : false;
+
+            $color          = isset( $_POST['buy_now_color'] ) ? $_POST['buy_now_color'] : false;
+            $hover_color    = isset( $_POST['buy_now_hover_color'] ) ? $_POST['buy_now_hover_color'] : false;
+            $bg_color       = isset( $_POST['buy_now_bg_color'] ) ? $_POST['buy_now_bg_color'] : false;
+            $hover_bg_color = isset( $_POST['buy_now_bg_hover_color'] ) ? $_POST['buy_now_bg_hover_color'] : false;
+
+            $padding = isset( $_POST['buy_now_padding'] ) ? $_POST['buy_now_padding'] : false;
+            $margin  = isset( $_POST['buy_now_margin'] ) ? $_POST['buy_now_margin'] : false;
+
+            $custom_css = isset( $_POST['custom_css'] ) ? $_POST['custom_css'] : false;
+
+            $values = array(
+                'single'         => $single,
+                'all'            => $all,
+                'label'          => $btn_label,
+                'color'          => $color,
+                'hover_color'    => $hover_color,
+                'bg_color'       => $bg_color,
+                'hover_bg_color' => $hover_bg_color,
+                'padding'        => $padding,
+                'margin'         => $margin,
+                'custom_css'     => $custom_css,
+            );
+
+            foreach ( $values as $key => $value ) {
+                update_option( 'BNBFW' . $key, $value );
+            }
+        }
         
         ?>
 
         <div class="wrap">
             <h1 class="wp-heading-inline">
-                <?php echo __( 'Buy Now Button Settings', 'buy-now-button' ); ?>
+                <?php echo __( 'Buy Now For Woocommerce', 'buy-now-button' ); ?>
             </h1>
 
             <?php include __DIR__ .'/view/button-settings.php'; ?>
