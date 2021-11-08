@@ -33,6 +33,7 @@ final class Buy_Now_Button {
 
         add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
         add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
+        add_filter( 'body_class', array( $this, 'body_classes' ) );
     }
 
     /**
@@ -72,10 +73,10 @@ final class Buy_Now_Button {
      * Included files.
      */
     public function includes() {
-
         require_once __DIR__ . '/includes/assets.php';
         require_once __DIR__ . '/includes/button-output.php';
         require_once __DIR__ . '/includes/menu.php';
+        require_once __DIR__ . '/includes/option-controller.php';
     }
 
 
@@ -94,6 +95,10 @@ final class Buy_Now_Button {
         }
     }
 
+    public function body_classes() {
+		return 'sovware-buy-now-button';
+	}
+    
 }
 
 /**

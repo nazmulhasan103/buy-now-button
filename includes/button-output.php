@@ -17,105 +17,85 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Buy_Now_Button_Output {
 
-	/**
-	 * Status.
-	 *
-	 * @var string
-	 */
-	private $enabled = 'yes';
-	
-	/**
-	 * Position.
-	 *
-	 * @var string
-	 */
-	private $position = 'before';
-
 	public function __construct() {
 
-		if ( $this->is_enabled() ) {
-			$this->handle_button_positions();
+		if ( Option_Controller::get_options( 'single' ) ) {
+			$this->single_product_button_positions();
+		}
+
+		if ( Option_Controller::get_options( 'all' ) ) {
+			$this->card_product_button_positions();
 		}
 	}
 
-	public function handle_button_positions() {
-		if ( $this->is_before_button() ) {
-			add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'button_template' ] );
-			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'button_template' ] );
-		} elseif ( $this->is_after_button() ) {
-			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'button_template' ], 5 );
-			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'button_template' ], 5 );
-		} elseif ( $this->is_replace_button() ) {
-			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'button_template' ], 5 );
-			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'button_template' ], 5 );
+	public function single_product_button_positions() {
+		if ( Option_Controller::get_options( 'single_position' ) === 'before_single' ) {
+
+			add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'single_button_template' ] );
+
+		} elseif ( Option_Controller::get_options( 'single_position' ) === 'after_single' ) {
+
+			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'single_button_template' ], 5 );
+
+		} elseif ( Option_Controller::get_options( 'single_position' ) === 'replace_single' ) {
+
+			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'single_button_template' ] );
+			
+			//add_filter( 'body_class', array( $this, 'body_classes' ) );
+
+		} else {
+
+			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'single_button_template' ] );
+
 		}
 	}
 
-	/**
-	 * Is enable.
-	 *
-	 * @return boolean
-	 */
-	public function is_enabled() {
-		$enabled = get_option( 'buy_now_woo_single_product_enable', $this->enabled );
+	public function card_product_button_positions() {
 
-		return $enabled && 'no' !== $enabled;
-	}
+		if ( Option_Controller::get_options( 'card_position' ) === 'before_card' ) {
 
-	/**
-	 * Gets position button.
-	 *
-	 * @return string
-	 */
-	public function get_position() {
-		return get_option( 'buy_now_woo_single_product_position', $this->position );
-	}
+			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'card_button_template' ], 5 );
 
-	/**
-	 * If button position is before `add to cart` button.
-	 *
-	 * @return boolean
-	 */
-	public function is_before_button() {
-		return ( 'before' === $this->get_position() );
-	}
+		} elseif ( Option_Controller::get_options( 'card_position' ) === 'after_card' ) {
 
-	/**
-	 * If button position is after `add to cart` button.
-	 *
-	 * @return boolean
-	 */
-	public function is_after_button() {
-		return ( 'after' === $this->get_position() );
-	}
+			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'card_button_template' ] );
 
-	/**
-	 * If `buy now` button replace `add to cart` button
-	 *
-	 * @return boolean
-	 */
-	public function is_replace_button() {
-		return ( 'replace' === $this->get_position() );
+		} elseif ( Option_Controller::get_options( 'card_position' ) === 'replace_card' ) {
+
+			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'card_button_template' ] );
+
+			//add_filter( 'body_class', [ $this, 'body_classes' ] );
+
+		} else {
+
+			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'card_button_template' ] );
+
+		}
 	}
 
 	/**
 	 * Single product buy now button
 	 */
-	public function button_template() {
+	public function single_button_template() {
 		global $product;
-
-		if ( is_singular( 'product' ) ) {
-			
-			if ( ! $product->is_type( 'simple' ) ) {
-				return false;
-			}
-	
-			printf( '<a id="sbw_wc-adding-button-archive" href="%s?buy-now=%s" data-quantity="1" class="button product_type_simple add_to_cart_button  buy_now_button" data-product_id="%s" rel="nofollow">%s</a>', wc_get_checkout_url(), $product->get_ID(), $product->get_ID(), esc_html__( 'Buy Now-', 'sbw-wc' ) );
-
-		} else {
-
-    		printf( '<button id="sbw_wc-adding-button" type="submit" name="sbw-wc-buy-now" value="%d" class="single_add_to_cart_button buy_now_button button alt">%s</button>', $product->get_ID(), esc_html__( 'Buy Now-', 'sbw-wc' ) );
-
+		
+		if ( ! $product->is_type( 'simple' ) ) {
+			return false;
 		}
+
+		printf( '<a id="sbw_wc-adding-button-archive" href="%s?buy-now=%s" data-quantity="1" class="button product_type_simple add_to_cart_button  buy_now_button" data-product_id="%s" rel="nofollow">%s</a>', wc_get_checkout_url(), $product->get_ID(), $product->get_ID(), Option_Controller::get_options( 'label' ) );
 	}
+
+	/**
+	 * Single product buy now button
+	 */
+	public function card_button_template() {
+		global $product;
+		
+		printf( '<button id="sbw_wc-adding-button" type="submit" name="sbw-wc-buy-now" value="%d" class="single_add_to_cart_button buy_now_button button alt">%s</button>', $product->get_ID(), Option_Controller::get_options( 'label' ) );
+	}
+
+	/* public function body_classes( $classes ) {
+		return $classes . 'sovware-buy-now-button';
+	} */
 }
