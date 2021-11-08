@@ -20,8 +20,8 @@ class Assets {
      * Initializes the class
      */
     function __construct() {
-        add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
-        add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'register_scripts' ] );
+        add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
     }
 
     /**

@@ -29,6 +29,7 @@ class Buy_Now_Button_Output {
 	}
 
 	public function single_product_button_positions() {
+
 		if ( Option_Controller::get_options( 'single_position' ) === 'before_single' ) {
 
 			add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'single_button_template' ] );
@@ -40,8 +41,6 @@ class Buy_Now_Button_Output {
 		} elseif ( Option_Controller::get_options( 'single_position' ) === 'replace_single' ) {
 
 			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'single_button_template' ] );
-			
-			//add_filter( 'body_class', array( $this, 'body_classes' ) );
 
 		} else {
 
@@ -64,8 +63,6 @@ class Buy_Now_Button_Output {
 
 			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'card_button_template' ] );
 
-			//add_filter( 'body_class', [ $this, 'body_classes' ] );
-
 		} else {
 
 			add_action( 'woocommerce_after_shop_loop_item', [ $this, 'card_button_template' ] );
@@ -78,12 +75,7 @@ class Buy_Now_Button_Output {
 	 */
 	public function single_button_template() {
 		global $product;
-		
-		if ( ! $product->is_type( 'simple' ) ) {
-			return false;
-		}
-
-		printf( '<a id="sbw_wc-adding-button-archive" href="%s?buy-now=%s" data-quantity="1" class="button product_type_simple add_to_cart_button  buy_now_button" data-product_id="%s" rel="nofollow">%s</a>', wc_get_checkout_url(), $product->get_ID(), $product->get_ID(), Option_Controller::get_options( 'label' ) );
+		printf( '<button id="sbw_wc-adding-button" type="submit" name="sbw-wc-buy-now" value="%d" class="single_add_to_cart_button buy_now_button button alt">%s</button>', $product->get_ID(), Option_Controller::get_options( 'label' ) );
 	}
 
 	/**
@@ -91,11 +83,11 @@ class Buy_Now_Button_Output {
 	 */
 	public function card_button_template() {
 		global $product;
-		
-		printf( '<button id="sbw_wc-adding-button" type="submit" name="sbw-wc-buy-now" value="%d" class="single_add_to_cart_button buy_now_button button alt">%s</button>', $product->get_ID(), Option_Controller::get_options( 'label' ) );
-	}
 
-	/* public function body_classes( $classes ) {
-		return $classes . 'sovware-buy-now-button';
-	} */
+		if ( ! $product->is_type( 'simple' ) ) {
+			return false;
+		}
+
+		printf( '<a id="sovware-buy-now" href="%s?buy-now=%s" data-quantity="1" class="button buy_now_button" data-product_id="%s" rel="nofollow">%s</a>', wc_get_checkout_url(), $product->get_ID(), $product->get_ID(), Option_Controller::get_options( 'label' ) );
+	}
 }

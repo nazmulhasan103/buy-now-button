@@ -12,6 +12,8 @@
  * Domain Path:       /languages
  */
 
+use Buy_Now_Button\Option_Controller;
+
 if ( ! defined( 'ABSPATH' ) ) {
     return;
 }
@@ -34,6 +36,8 @@ final class Buy_Now_Button {
         add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
         add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
         add_filter( 'body_class', array( $this, 'body_classes' ) );
+        
+        add_action( 'wp_loaded', [ $this, 'sbw_wc_handle_buy_now' ] );
     }
 
     /**
@@ -79,7 +83,6 @@ final class Buy_Now_Button {
         require_once __DIR__ . '/includes/option-controller.php';
     }
 
-
     /**
      * Initializes the plugin.
      *
@@ -95,10 +98,46 @@ final class Buy_Now_Button {
         }
     }
 
-    public function body_classes() {
-		return 'sovware-buy-now-button';
+    public function body_classes( $classes ) {
+        $classes = '';
+
+		if ( Option_Controller::get_options( 'single' ) && ( Option_Controller::get_options( 'single_position' ) === 'replace_single' ) ) {
+			$classes .= 'sovware-buy-now-button-hide-for-single-product ';
+			
+		}
+
+		if ( Option_Controller::get_options( 'all' ) && ( Option_Controller::get_options( 'card_position' ) === 'replace_card' ) ) {
+			$classes .= 'sovware-buy-now-button-hide-for-card-product';
+		}
+
+		return $classes;
 	}
-    
+
+    function sbw_wc_handle_buy_now()
+    {
+        if ( !isset( $_REQUEST['sbw-wc-buy-now'] ) )
+        {
+            return false;
+        }
+
+        WC()->cart->empty_cart();
+
+        $product_id = absint( $_REQUEST['sbw-wc-buy-now'] );
+        $quantity = absint( $_REQUEST['quantity'] );
+
+        if ( isset( $_REQUEST['variation_id'] ) ) {
+
+            $variation_id = absint( $_REQUEST['variation_id'] );
+            WC()->cart->add_to_cart( $product_id, 1, $variation_id );
+
+        }else{
+            WC()->cart->add_to_cart( $product_id, $quantity );
+        }
+
+        wp_safe_redirect( wc_get_checkout_url() );
+        exit;
+    }
+
 }
 
 /**
