@@ -12,7 +12,7 @@
  * Domain Path:       /languages
  */
 
-use Buy_Now_Button\Option_Controller;
+use BNBF_Woocommerce\BNBF_Controller;
 
 if ( ! defined( 'ABSPATH' ) ) {
     return;
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The main plugin class.
  */
-final class Buy_Now_Button {
+final class BNBF_Woocommerce {
 
     const version = '1.0';
 
@@ -36,8 +36,8 @@ final class Buy_Now_Button {
         add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
         add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
         add_filter( 'body_class', array( $this, 'body_classes' ) );
-        
-        add_action( 'wp_loaded', [ $this, 'sbw_wc_handle_buy_now' ] );
+
+        add_action( 'wp_loaded', [ $this, 'bnbf_handle_single' ] );
     }
 
     /**
@@ -50,7 +50,7 @@ final class Buy_Now_Button {
     /**
      * Initializes a singleton instance.
      *
-     * @return \Buy_Now_Button classes.
+     * @return \BNBF_Woocommerce classes.
      */
     public static function init() {
         static $instance = false;
@@ -66,11 +66,11 @@ final class Buy_Now_Button {
      * Pre defined constance.
      */
     public function define_constants() {
-        define( 'Buy_Now_Button_VERSION', self::version );
-        define( 'Buy_Now_Button_FILE', __FILE__ );
-        define( 'Buy_Now_Button_PATH', __DIR__ );
-        define( 'Buy_Now_Button_URL', plugins_url( '', Buy_Now_Button_FILE ) );
-        define( 'Buy_Now_Button_ASSETS', Buy_Now_Button_URL . '/assets' );
+        define( 'BNBF_Woocommerce_VERSION', self::version );
+        define( 'BNBF_Woocommerce_FILE', __FILE__ );
+        define( 'BNBF_Woocommerce_PATH', __DIR__ );
+        define( 'BNBF_Woocommerce_URL', plugins_url( '', BNBF_Woocommerce_FILE ) );
+        define( 'BNBF_Woocommerce_ASSETS', BNBF_Woocommerce_URL . '/assets' );
     }
     
     /**
@@ -78,9 +78,8 @@ final class Buy_Now_Button {
      */
     public function includes() {
         require_once __DIR__ . '/includes/assets.php';
-        require_once __DIR__ . '/includes/button-output.php';
+        require_once __DIR__ . '/includes/controller.php';
         require_once __DIR__ . '/includes/menu.php';
-        require_once __DIR__ . '/includes/option-controller.php';
     }
 
     /**
@@ -90,33 +89,36 @@ final class Buy_Now_Button {
      */
     public function init_plugin() {
         
-        new Buy_Now_Button\Assets;
-        new Buy_Now_Button\Buy_Now_Button_Output;
+        new BNBF_Woocommerce\Assets;
+        new BNBF_Woocommerce\BNBF_Controller;
         
         if ( is_admin() ) {
-            new Buy_Now_Button\Menu;
+            new BNBF_Woocommerce\Menu;
         }
     }
 
     public function body_classes( $classes ) {
+
         $classes = '';
 
-		if ( Option_Controller::get_options( 'single' ) && ( Option_Controller::get_options( 'single_position' ) === 'replace_single' ) ) {
-			$classes .= 'sovware-buy-now-button-hide-for-single-product ';
-			
-		}
+		if ( BNBF_Controller::get_options( 'single' ) && ( BNBF_Controller::get_options( 'single_position' ) === 'replace_single' ) ) {
+			$classes .= 'bnbf_woocommerce_single_product bnbf_woocommerce_single_product_hide_buy_now ';
+		} else {
+			$classes .= 'bnbf_woocommerce_single_product ';
+        }
 
-		if ( Option_Controller::get_options( 'all' ) && ( Option_Controller::get_options( 'card_position' ) === 'replace_card' ) ) {
-			$classes .= 'sovware-buy-now-button-hide-for-card-product';
-		}
+		if ( BNBF_Controller::get_options( 'all' ) && ( BNBF_Controller::get_options( 'card_position' ) === 'replace_card' ) ) {
+			$classes .= 'bnbf_woocommerce_card_product bnbf_woocommerce_card_product_hide_buy_now ';
+		} else {
+			$classes .= 'bnbf_woocommerce_card_product ';
+        }
 
 		return $classes;
 	}
 
-    function sbw_wc_handle_buy_now()
-    {
-        if ( !isset( $_REQUEST['sbw-wc-buy-now'] ) )
-        {
+    function bnbf_handle_single() {
+
+        if ( !isset( $_REQUEST['sbw-wc-buy-now'] ) ) {
             return false;
         }
 
@@ -125,28 +127,20 @@ final class Buy_Now_Button {
         $product_id = absint( $_REQUEST['sbw-wc-buy-now'] );
         $quantity = absint( $_REQUEST['quantity'] );
 
-        if ( isset( $_REQUEST['variation_id'] ) ) {
-
-            $variation_id = absint( $_REQUEST['variation_id'] );
-            WC()->cart->add_to_cart( $product_id, 1, $variation_id );
-
-        }else{
-            WC()->cart->add_to_cart( $product_id, $quantity );
-        }
+        WC()->cart->add_to_cart( $product_id, $quantity );
 
         wp_safe_redirect( wc_get_checkout_url() );
         exit;
     }
-
 }
 
 /**
  * Initializes the main plugin.
- * @return \Buy_Now_Button
+ * @return \BNBF_Woocommerce
  */
-function Woocommerce_Buy_Now_Button() {
-    return Buy_Now_Button::init();
+function Woocommerce_BNBF_Woocommerce() {
+    return BNBF_Woocommerce::init();
 }
 
 //Kick off the plugin.
-Woocommerce_Buy_Now_Button();
+Woocommerce_BNBF_Woocommerce();

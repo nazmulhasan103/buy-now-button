@@ -4,10 +4,9 @@
  * @version 1.0
  */
 
-/* .sovware-buy-now-button-hide-for-card-product .add_to_cart_button{
+.bnbf_woocommerce_single_product_hide_buy_now .single_add_to_cart_button{
     display: none;
 }
-
-.sovware-buy-now-button-hide-for-single-product .single_add_to_cart_button{
+.bnbf_woocommerce_card_product_hide_buy_now .add_to_cart_button{
     display: none;
-} */
+}
