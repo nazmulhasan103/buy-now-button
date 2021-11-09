@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Buy Now Button - Woocommerce
+ * Plugin Name:       Buy Now for Woocommerce
  * Plugin URI:        https://github.com/themeaazz/buy-now-button
  * Description:       Buy now button of woocommerce.
  * Version:           1.0
@@ -30,14 +30,14 @@ final class BNBF_Woocommerce {
      */
     private function __construct() {
 
-        $this->define_constants();
-        $this->includes();
-
         add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
         add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
         add_filter( 'body_class', array( $this, 'body_classes' ) );
-
         add_action( 'wp_loaded', [ $this, 'bnbf_handle_single' ] );
+
+        $this->define_constants();
+        $this->includes();
+
     }
 
     /**
@@ -99,15 +99,18 @@ final class BNBF_Woocommerce {
 
     public function body_classes( $classes ) {
 
+        $enable_single = BNBF_Controller::get_options( 'single' ) && ( BNBF_Controller::get_options( 'single_position' ) === 'replace_single' ) ? true : false;
+        $enable_card   = BNBF_Controller::get_options( 'all' ) && ( BNBF_Controller::get_options( 'card_position' ) === 'replace_card' ) ? true : false;
+        
         $classes = '';
 
-		if ( BNBF_Controller::get_options( 'single' ) && ( BNBF_Controller::get_options( 'single_position' ) === 'replace_single' ) ) {
+		if ( $enable_single ) {
 			$classes .= 'bnbf_woocommerce_single_product bnbf_woocommerce_single_product_hide_buy_now ';
 		} else {
 			$classes .= 'bnbf_woocommerce_single_product ';
         }
 
-		if ( BNBF_Controller::get_options( 'all' ) && ( BNBF_Controller::get_options( 'card_position' ) === 'replace_card' ) ) {
+		if ( $enable_card ) {
 			$classes .= 'bnbf_woocommerce_card_product bnbf_woocommerce_card_product_hide_buy_now ';
 		} else {
 			$classes .= 'bnbf_woocommerce_card_product ';
