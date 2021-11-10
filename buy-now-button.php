@@ -32,8 +32,9 @@ final class BNBF_Woocommerce {
 
         add_action( 'plugins_loaded', [ $this, 'load_plugin_textdomain' ] );
         add_action( 'plugins_loaded', [ $this, 'init_plugin' ] );
-        add_filter( 'body_class', array( $this, 'body_classes' ) );
-        add_action( 'wp_loaded', [ $this, 'bnbf_handle_single' ] );
+        add_filter( 'body_class', [ $this, 'body_classes' ] );
+        add_action( 'wp_loaded', [ $this, 'single_button_handler' ] );
+        add_action( 'template_redirect', [ $this, 'card_button_handler' ] );
 
         $this->define_constants();
         $this->includes();
@@ -101,40 +102,70 @@ final class BNBF_Woocommerce {
 
         $enable_single = BNBF_Controller::get_options( 'single' ) && ( BNBF_Controller::get_options( 'single_position' ) === 'replace_single' ) ? true : false;
         $enable_card   = BNBF_Controller::get_options( 'all' ) && ( BNBF_Controller::get_options( 'card_position' ) === 'replace_card' ) ? true : false;
-        
-        $classes = '';
 
 		if ( $enable_single ) {
-			$classes .= 'bnbf_woocommerce_single_product bnbf_woocommerce_single_product_hide_buy_now ';
+			$classes[] = 'bnbf_woocommerce_single_product bnbf_woocommerce_single_product_hide_buy_now';
 		} else {
-			$classes .= 'bnbf_woocommerce_single_product ';
+			$classes[] = 'bnbf_woocommerce_single_product';
         }
 
 		if ( $enable_card ) {
-			$classes .= 'bnbf_woocommerce_card_product bnbf_woocommerce_card_product_hide_buy_now ';
+			$classes[] = 'bnbf_woocommerce_card_product bnbf_woocommerce_card_product_hide_buy_now';
 		} else {
-			$classes .= 'bnbf_woocommerce_card_product ';
+			$classes[] = 'bnbf_woocommerce_card_product';
         }
 
 		return $classes;
 	}
 
-    function bnbf_handle_single() {
+    function single_button_handler() {
 
-        if ( !isset( $_REQUEST['sbw-wc-buy-now'] ) ) {
+        if ( ! isset( $_REQUEST['bnbf_woocommerce_single_product'] ) ) {
             return false;
         }
 
-        WC()->cart->empty_cart();
+        if ( BNBF_Controller::get_options( 'reset_cart' ) ) {
+            WC()->cart->empty_cart();
+        }
 
-        $product_id = absint( $_REQUEST['sbw-wc-buy-now'] );
-        $quantity = absint( $_REQUEST['quantity'] );
+        $product_id = absint( $_REQUEST['bnbf_woocommerce_single_product'] );
+        $quantity   = absint( $_REQUEST['quantity'] );
 
-        WC()->cart->add_to_cart( $product_id, $quantity );
+        if ( isset( $_REQUEST['variation_id'] ) ) {
+
+            $variation_id = absint( $_REQUEST['variation_id'] );
+            WC()->cart->add_to_cart( $product_id, $quantity, $variation_id );
+
+            
+        }else{
+            WC()->cart->add_to_cart( $product_id, $quantity );
+        }
+
 
         wp_safe_redirect( wc_get_checkout_url() );
         exit;
     }
+
+    public function card_button_handler() {
+
+		global $wp;
+
+		if ( $wp->request != 'buy-now' ) {
+			return;
+		}
+
+		$id = isset( $_GET['id'] ) ? $_GET['id'] : '';
+
+		if ( BNBF_Controller::get_options( 'reset_cart' ) ) {
+            WC()->cart->empty_cart();
+        }
+
+		WC()->cart->add_to_cart( $id, 1 );
+
+		wp_safe_redirect( wc_get_checkout_url() );
+
+        exit;
+	}
 }
 
 /**

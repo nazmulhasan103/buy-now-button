@@ -64,6 +64,7 @@ class Menu {
             $s_m_right        = isset( $_POST['buy_now_s_m_right'] ) ? $_POST['buy_now_s_m_right'] : false;
             $s_m_bottom       = isset( $_POST['buy_now_s_m_bottom'] ) ? $_POST['buy_now_s_m_bottom'] : false;
             $s_m_left         = isset( $_POST['buy_now_s_m_left'] ) ? $_POST['buy_now_s_m_left'] : false;
+            $reset_cart       = isset( $_POST['reset_cart'] ) ? $_POST['reset_cart'] : false;
 
             $values = array(
                 'single'           => $single,
@@ -95,6 +96,7 @@ class Menu {
                 's_m_right'        => $s_m_right,
                 's_m_bottom'       => $s_m_bottom,
                 's_m_left'         => $s_m_left,
+                'reset_cart'       => $reset_cart,
             );
 
             foreach ( $values as $key => $value ) {
