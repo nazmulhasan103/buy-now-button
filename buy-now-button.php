@@ -137,10 +137,9 @@ final class BNBF_Woocommerce {
             WC()->cart->add_to_cart( $product_id, $quantity, $variation_id );
 
             
-        }else{
+        } else {
             WC()->cart->add_to_cart( $product_id, $quantity );
         }
-
 
         wp_safe_redirect( wc_get_checkout_url() );
         exit;
