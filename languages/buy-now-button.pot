@@ -1,0 +1,106 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2021-11-14 18:01+0600\n"
+"PO-Revision-Date: 2021-11-02 17:59+0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e;esc_html__;esc_attr__\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: assets\n"
+
+#: includes/controller.php:164
+msgid "Buy Now"
+msgstr ""
+
+#: includes/customize-settings.php:19
+msgid "General Settings"
+msgstr ""
+
+#: includes/customize-settings.php:25
+msgid "Enable - card product"
+msgstr ""
+
+#: includes/customize-settings.php:35
+msgid "Enable - single product"
+msgstr ""
+
+#: includes/customize-settings.php:46
+msgid "Button Label"
+msgstr ""
+
+#: includes/customize-settings.php:57
+msgid "Reset Cart before Buy Now"
+msgstr ""
+
+#: includes/customize-settings.php:68
+msgid "Button Position - card product"
+msgstr ""
+
+#: includes/customize-settings.php:74 includes/customize-settings.php:96
+msgid "Before Add To Cart Button"
+msgstr ""
+
+#: includes/customize-settings.php:78 includes/customize-settings.php:100
+msgid "After Add To Cart Button"
+msgstr ""
+
+#: includes/customize-settings.php:82 includes/customize-settings.php:104
+msgid "Replace Add To Cart Button"
+msgstr ""
+
+#: includes/customize-settings.php:90
+msgid "Button Position - single product"
+msgstr ""
+
+#: includes/customize-settings.php:117
+msgid "Button Style - card product"
+msgstr ""
+
+#: includes/customize-settings.php:123 includes/customize-settings.php:203
+msgid "Text color"
+msgstr ""
+
+#: includes/customize-settings.php:133 includes/customize-settings.php:211
+msgid "Background color"
+msgstr ""
+
+#: includes/customize-settings.php:141 includes/customize-settings.php:219
+msgid "Text hover color"
+msgstr ""
+
+#: includes/customize-settings.php:151 includes/customize-settings.php:229
+msgid "Background hover color"
+msgstr ""
+
+#: includes/customize-settings.php:161 includes/customize-settings.php:239
+msgid "Padding"
+msgstr ""
+
+#: includes/customize-settings.php:177 includes/customize-settings.php:255
+msgid "Margin"
+msgstr ""
+
+#: includes/customize-settings.php:197
+msgid "Button Style - single product"
+msgstr ""
+
+#: includes/customize-settings.php:277
+msgid "Save"
+msgstr ""
+
+#: includes/menu.php:27
+msgid "Buy Now Button"
+msgstr ""
+
+#: includes/menu.php:110
+msgid "Buy Now For Woocommerce"
+msgstr ""
