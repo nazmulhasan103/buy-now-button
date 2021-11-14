@@ -161,7 +161,7 @@ class BNBF_Controller {
 		$options = array(
 			'single'           => 'buy_now_single',
 			'all'              => 'buy_now_product_card',
-			'label'            => __( 'Buy Now', 'sovware' ),
+			'label'            => __( 'Buy Now', 'bnbf-woocommerce' ),
 			'single_position'  => 'after_single',
 			'card_position'    => 'after_card',
 			'color'            => '#ffffff',

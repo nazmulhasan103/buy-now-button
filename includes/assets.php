@@ -50,10 +50,12 @@ class Assets {
 
     private function inline_style() {
 
-        $s_color    = ! empty( BNBF_Controller::get_options( 'hover_s_color' ) ) ? 'color:' . BNBF_Controller::get_options( 'hover_s_color' ). ' !important; ' : '';
+        $s_color = ! empty( BNBF_Controller::get_options( 'hover_s_color' ) ) ? 'color:' . BNBF_Controller::get_options( 'hover_s_color' ). ' !important; ' : '';
+
         $bg_s_color = ! empty( BNBF_Controller::get_options( 'hover_bg_s_color' ) ) ? 'background-color:' . BNBF_Controller::get_options( 'hover_bg_s_color' ). ' !important; ' : '';
 
-        $color    = ! empty( BNBF_Controller::get_options( 'hover_color' ) ) ? 'color:' . BNBF_Controller::get_options( 'hover_color' ). ' !important; ' : '';
+        $color = ! empty( BNBF_Controller::get_options( 'hover_color' ) ) ? 'color:' . BNBF_Controller::get_options( 'hover_color' ). ' !important; ' : '';
+        
         $bg_color = ! empty( BNBF_Controller::get_options( 'hover_bg_color' ) ) ? 'background-color:' . BNBF_Controller::get_options( 'hover_bg_color' ). ' !important; ' : '';
 
         $attr_s = $s_color . $bg_s_color;

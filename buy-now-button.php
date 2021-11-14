@@ -45,7 +45,7 @@ final class BNBF_Woocommerce {
      * Load buy-now-button textdomain.
      */
     public function load_plugin_textdomain() {
-        load_plugin_textdomain( 'buy-now-button', false, dirname( plugin_basename( __FILE__ ) ) . '/languages');
+        load_plugin_textdomain( 'bnbf-woocommerce', false, dirname( plugin_basename( __FILE__ ) ) . '/languages');
     }
 
     /**

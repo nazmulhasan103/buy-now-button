@@ -23,10 +23,10 @@ class Menu {
     public function admin_menu() {
 
         $parent_slug = 'woocommerce';
-        $page_title  = 'buy-now-button';
-        $menu_title  = __( 'Buy Now Button', 'buy-now-button' );
+        $page_title  = 'bnbf-woocommerce';
+        $menu_title  = __( 'Buy Now Button', 'bnbf-woocommerce' );
         $capability  = 'manage_woocommerce';
-        $menu_slug   = 'buy-now-button';
+        $menu_slug   = 'bnbf-woocommerce';
 
         add_submenu_page( $parent_slug, $page_title, $menu_title, $capability, $menu_slug, [ $this, 'menu_callback' ] );
     }
@@ -107,7 +107,7 @@ class Menu {
 
         <div class="wrap">
             <h1 class="wp-heading-inline">
-                <?php echo __( 'Buy Now For Woocommerce', 'buy-now-button' ); ?>
+                <?php echo __( 'Buy Now For Woocommerce', 'bnbf-woocommerce' ); ?>
             </h1>
 
             <?php include __DIR__ .'/customize-settings.php'; ?>
