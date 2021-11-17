@@ -135,7 +135,7 @@ use BNBF_Woocommerce\BNBF_Controller;
                     <td><input type="color" name="buy_now_bg_color" id="buy_now_bg_color" value="<?php echo esc_attr( BNBF_Controller::get_options('bg_color') ); ?>"></td>
 
                 </tr>
-                
+
                 <tr>
 
                     <th scope="row"><label for="buy_now_hover_color"><?php echo __( 'Text hover color', 'buy-now-button' ); ?></label></th>

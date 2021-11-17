@@ -120,6 +120,7 @@ class BNBF_Controller {
 
 		$padding_margin_atts = $p_top . $p_right . $p_bottom . $p_left . $m_top . $m_right . $m_bottom . $m_left;
 		$atts                = $p_top . $p_right . $p_bottom . $p_left . $m_top . $m_right . $m_bottom . $m_left . $color . $bg_color;
+		$atts                = esc_attr( $atts );
 
 		if ( $padding_margin ) {
 			$attr = $padding_margin_atts;
@@ -148,6 +149,7 @@ class BNBF_Controller {
 		$s_m_left   = ! empty( self::get_options( 's_m_left' ) ) ? 'margin-left:'. self::get_options( 's_m_left' ). 'px;' : '';
 
 		$atts = $s_p_top . $s_p_right . $s_p_bottom . $s_p_left . $s_m_top . $s_m_right . $s_m_bottom . $s_m_left . $s_color . $bg_s_color;
+		$atts = esc_attr( $atts );
 
 		if ( $atts  ) {
 			$attr = "style={$atts}";
@@ -191,7 +193,7 @@ class BNBF_Controller {
 			'reset_cart'       => '',
 		);
 
-		if ( !empty( $option_key ) && array_key_exists(  $option_key, $options ) ) {
+		if ( ! empty( $option_key ) && array_key_exists(  $option_key, $options ) ) {
 			return get_option( 'BNBFW_' . $option_key, $options[$option_key] );
 		}
 

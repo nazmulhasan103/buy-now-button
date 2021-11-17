@@ -115,7 +115,7 @@ final class BNBF_Woocommerce {
 			$classes[] = 'bnbf_woocommerce_card_product';
         }
 
-		return $classes;
+		return esc_html( $classes );
 	}
 
     function single_button_handler() {
@@ -153,7 +153,7 @@ final class BNBF_Woocommerce {
 			return;
 		}
 
-		$id = isset( $_GET['id'] ) ? $_GET['id'] : '';
+		$id = isset( $_GET['id'] ) ? esc_attr( $_GET['id'] ) : '';
 
 		if ( BNBF_Controller::get_options( 'reset_cart' ) ) {
             WC()->cart->empty_cart();
