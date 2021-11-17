@@ -35,36 +35,36 @@ class Menu {
 
         if ( ! empty( $_POST ) ) {
 
-            $single           = isset( $_POST['buy_now_single'] ) ? $_POST['buy_now_single'] : false;
-            $all              = isset( $_POST['buy_now_product_card'] ) ? $_POST['buy_now_product_card'] : false;
-            $btn_label        = isset( $_POST['buy_now_label'] ) ? $_POST['buy_now_label'] : false;
-            $single_position  = isset( $_POST['single_product_position'] ) ? $_POST['single_product_position'] : false;
-            $card_position    = isset( $_POST['card_product_position'] ) ? $_POST['card_product_position'] : false;
-            $color            = isset( $_POST['buy_now_color'] ) ? $_POST['buy_now_color'] : false;
-            $hover_color      = isset( $_POST['buy_now_hover_color'] ) ? $_POST['buy_now_hover_color'] : false;
-            $bg_color         = isset( $_POST['buy_now_bg_color'] ) ? $_POST['buy_now_bg_color'] : false;
-            $hover_bg_color   = isset( $_POST['buy_now_bg_hover_color'] ) ? $_POST['buy_now_bg_hover_color'] : false;
-            $s_color          = isset( $_POST['buy_now_s_color'] ) ? $_POST['buy_now_s_color'] : false;
-            $hover_s_color    = isset( $_POST['buy_now_hover_s_color'] ) ? $_POST['buy_now_hover_s_color'] : false;
-            $bg_s_color       = isset( $_POST['buy_now_bg_s_color'] ) ? $_POST['buy_now_bg_s_color'] : false;
-            $hover_bg_s_color = isset( $_POST['buy_now_bg_hover_s_color'] ) ? $_POST['buy_now_bg_hover_s_color'] : false;
-            $p_top            = isset( $_POST['buy_now_p_top'] ) ? $_POST['buy_now_p_top'] : false;
-            $p_right          = isset( $_POST['buy_now_p_right'] ) ? $_POST['buy_now_p_right'] : false;
-            $p_bottom         = isset( $_POST['buy_now_p_bottom'] ) ? $_POST['buy_now_p_bottom'] : false;
-            $p_left           = isset( $_POST['buy_now_p_left'] ) ? $_POST['buy_now_p_left'] : false;
-            $m_top            = isset( $_POST['buy_now_m_top'] ) ? $_POST['buy_now_m_top'] : false;
-            $m_right          = isset( $_POST['buy_now_m_right'] ) ? $_POST['buy_now_m_right'] : false;
-            $m_bottom         = isset( $_POST['buy_now_m_bottom'] ) ? $_POST['buy_now_m_bottom'] : false;
-            $m_left           = isset( $_POST['buy_now_m_left'] ) ? $_POST['buy_now_m_left'] : false;
-            $s_p_top          = isset( $_POST['buy_now_s_p_top'] ) ? $_POST['buy_now_s_p_top'] : false;
-            $s_p_right        = isset( $_POST['buy_now_s_p_right'] ) ? $_POST['buy_now_s_p_right'] : false;
-            $s_p_bottom       = isset( $_POST['buy_now_s_p_bottom'] ) ? $_POST['buy_now_s_p_bottom'] : false;
-            $s_p_left         = isset( $_POST['buy_now_s_p_left'] ) ? $_POST['buy_now_s_p_left'] : false;
-            $s_m_top          = isset( $_POST['buy_now_s_m_top'] ) ? $_POST['buy_now_s_m_top'] : false;
-            $s_m_right        = isset( $_POST['buy_now_s_m_right'] ) ? $_POST['buy_now_s_m_right'] : false;
-            $s_m_bottom       = isset( $_POST['buy_now_s_m_bottom'] ) ? $_POST['buy_now_s_m_bottom'] : false;
-            $s_m_left         = isset( $_POST['buy_now_s_m_left'] ) ? $_POST['buy_now_s_m_left'] : false;
-            $reset_cart       = isset( $_POST['reset_cart'] ) ? $_POST['reset_cart'] : false;
+            $single           = isset( $_POST['buy_now_single'] ) ? esc_attr( $_POST['buy_now_single'] ) : false;
+            $all              = isset( $_POST['buy_now_product_card'] ) ? esc_attr( $_POST['buy_now_product_card'] ) : false;
+            $btn_label        = isset( $_POST['buy_now_label'] ) ? esc_attr( $_POST['buy_now_label'] ) : false;
+            $single_position  = isset( $_POST['single_product_position'] ) ? esc_attr( $_POST['single_product_position'] ) : false;
+            $card_position    = isset( $_POST['card_product_position'] ) ? esc_attr( $_POST['card_product_position'] ) : false;
+            $color            = isset( $_POST['buy_now_color'] ) ? esc_attr( $_POST['buy_now_color'] ) : false;
+            $hover_color      = isset( $_POST['buy_now_hover_color'] ) ? esc_attr( $_POST['buy_now_hover_color'] ) : false;
+            $bg_color         = isset( $_POST['buy_now_bg_color'] ) ? esc_attr( $_POST['buy_now_bg_color'] ) : false;
+            $hover_bg_color   = isset( $_POST['buy_now_bg_hover_color'] ) ? esc_attr( $_POST['buy_now_bg_hover_color'] ) : false;
+            $s_color          = isset( $_POST['buy_now_s_color'] ) ? esc_attr( $_POST['buy_now_s_color'] ) : false;
+            $hover_s_color    = isset( $_POST['buy_now_hover_s_color'] ) ? esc_attr( $_POST['buy_now_hover_s_color'] ) : false;
+            $bg_s_color       = isset( $_POST['buy_now_bg_s_color'] ) ? esc_attr( $_POST['buy_now_bg_s_color'] ) : false;
+            $hover_bg_s_color = isset( $_POST['buy_now_bg_hover_s_color'] ) ? esc_attr( $_POST['buy_now_bg_hover_s_color'] ) : false;
+            $p_top            = isset( $_POST['buy_now_p_top'] ) ? esc_attr( $_POST['buy_now_p_top'] ) : false;
+            $p_right          = isset( $_POST['buy_now_p_right'] ) ? esc_attr( $_POST['buy_now_p_right'] ) : false;
+            $p_bottom         = isset( $_POST['buy_now_p_bottom'] ) ? esc_attr( $_POST['buy_now_p_bottom'] ) : false;
+            $p_left           = isset( $_POST['buy_now_p_left'] ) ? esc_attr( $_POST['buy_now_p_left'] ) : false;
+            $m_top            = isset( $_POST['buy_now_m_top'] ) ? esc_attr( $_POST['buy_now_m_top'] ) : false;
+            $m_right          = isset( $_POST['buy_now_m_right'] ) ? esc_attr( $_POST['buy_now_m_right'] ) : false;
+            $m_bottom         = isset( $_POST['buy_now_m_bottom'] ) ? esc_attr( $_POST['buy_now_m_bottom'] ) : false;
+            $m_left           = isset( $_POST['buy_now_m_left'] ) ? esc_attr( $_POST['buy_now_m_left'] ) : false;
+            $s_p_top          = isset( $_POST['buy_now_s_p_top'] ) ? esc_attr( $_POST['buy_now_s_p_top'] ) : false;
+            $s_p_right        = isset( $_POST['buy_now_s_p_right'] ) ? esc_attr( $_POST['buy_now_s_p_right'] ) : false;
+            $s_p_bottom       = isset( $_POST['buy_now_s_p_bottom'] ) ? esc_attr( $_POST['buy_now_s_p_bottom'] ) : false;
+            $s_p_left         = isset( $_POST['buy_now_s_p_left'] ) ? esc_attr( $_POST['buy_now_s_p_left'] ) : false;
+            $s_m_top          = isset( $_POST['buy_now_s_m_top'] ) ? esc_attr( $_POST['buy_now_s_m_top'] ) : false;
+            $s_m_right        = isset( $_POST['buy_now_s_m_right'] ) ? esc_attr( $_POST['buy_now_s_m_right'] ) : false;
+            $s_m_bottom       = isset( $_POST['buy_now_s_m_bottom'] ) ? esc_attr( $_POST['buy_now_s_m_bottom'] ) : false;
+            $s_m_left         = isset( $_POST['buy_now_s_m_left'] ) ? esc_attr( $_POST['buy_now_s_m_left'] ) : false;
+            $reset_cart       = isset( $_POST['reset_cart'] ) ? esc_attr( $_POST['reset_cart'] ) : false;
 
             $values = array(
                 'single'           => $single,
@@ -106,6 +106,7 @@ class Menu {
         ?>
 
         <div class="wrap">
+            
             <h1 class="wp-heading-inline">
                 <?php echo __( 'Buy Now For Woocommerce', 'buy-now-button' ); ?>
             </h1>

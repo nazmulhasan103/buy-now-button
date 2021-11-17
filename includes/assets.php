@@ -59,7 +59,10 @@ class Assets {
         $bg_color = ! empty( BNBF_Controller::get_options( 'hover_bg_color' ) ) ? 'background-color:' . BNBF_Controller::get_options( 'hover_bg_color' ). ' !important; ' : '';
 
         $attr_s = $s_color . $bg_s_color;
+        $attr_s = esc_attr( $attr_s );
+
         $attr   = $color . $bg_color;
+        $attr   = esc_attr( $attr );
 
         $dynamic_css = ".bnbf_woocommerce_single_product #bnbf_woocommerce_single_product:hover{{$attr_s}}";
         $dynamic_css .= ".bnbf_woocommerce_card_product #bnbf_woocommerce_card_product:hover{{$attr}}";
