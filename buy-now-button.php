@@ -128,12 +128,12 @@ final class BNBF_Woocommerce {
             WC()->cart->empty_cart();
         }
 
-        $product_id = absint( $_REQUEST['bnbf_woocommerce_single_product'] );
-        $quantity   = absint( $_REQUEST['quantity'] );
+        $product_id = absint( sanitize_text_field( $_REQUEST['bnbf_woocommerce_single_product'] ) );
+        $quantity   = absint( sanitize_text_field( $_REQUEST['quantity'] ) );
 
         if ( isset( $_REQUEST['variation_id'] ) ) {
 
-            $variation_id = absint( $_REQUEST['variation_id'] );
+            $variation_id = absint( sanitize_text_field( $_REQUEST['variation_id'] ) );
             WC()->cart->add_to_cart( $product_id, $quantity, $variation_id );
 
             
@@ -153,7 +153,7 @@ final class BNBF_Woocommerce {
 			return;
 		}
 
-		$id = isset( $_GET['id'] ) ? esc_attr( $_GET['id'] ) : '';
+		$id = isset( $_GET['id'] ) ? sanitize_text_field( $_GET['id'] ) : '';
 
 		if ( BNBF_Controller::get_options( 'reset_cart' ) ) {
             WC()->cart->empty_cart();
