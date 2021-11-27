@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2021-11-14 18:01+0600\n"
+"POT-Creation-Date: 2021-11-27 10:01+0600\n"
 "PO-Revision-Date: 2021-11-02 17:59+0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: assets\n"
 
-#: includes/controller.php:164
+#: includes/controller.php:166
 msgid "Buy Now"
 msgstr ""
 
@@ -101,6 +101,6 @@ msgstr ""
 msgid "Buy Now Button"
 msgstr ""
 
-#: includes/menu.php:110
+#: includes/menu.php:111
 msgid "Buy Now For Woocommerce"
 msgstr ""
